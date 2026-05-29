@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Roadmap — Zero to Expert 🏆</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', 'Arial', sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 16px;
+            background-color: #fff;
+            color: #111;
+        }
+        h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111;
+            margin: 0;
+        }
+        .subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-top: 4px;
+            margin-bottom: 20px;
+        }
+        .flex-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .label-text {
+            font-size: 13px;
+            color: #555;
+            fontWeight: 600;
+        }
+        .btn-toggle {
+            padding: 7px 20px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-lang-cpp { background: #0057B8; color: #fff; }
+        .btn-lang-inactive { background: #f0f0f0; color: #555; }
+        
+        /* Language Setup Box */
+        .lang-box {
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .lang-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        pre {
+            font-size: 11px;
+            color: #333;
+            background: #fff;
+            border-radius: 6px;
+            padding: 10px 12px;
+            overflow-x: auto;
+            margin: 0 0 10px 0;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .ds-title {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        /* Tabs Section */
+        .tabs-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 7px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            background: #f0f0f0;
+            color: #555;
+        }
+        .tab-btn.active {
+            background: #111;
+            color: #fff;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        .stat-val { font-size: 16px; font-weight: 700; color: #111; }
+        .stat-lbl { font-size: 11px; color: #777; margin-top: 2px; }
+
+        @media (max-width: 500px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Alerts/Banners */
+        .alert-banner {
+            background: #fff8e1;
+            border: 1px solid #f59e0b;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #5d4037;
+            line-height: 1.5;
+        }
+        .info-blue {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 13px;
+            color: #0369a1;
+        }
+        .info-green {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 13px;
+            color: #166534;
+            line-height: 1.6;
+        }
+
+        /* Views Layout */
+        .tab-view { display: none; }
+        .tab-view.active { display: block; }
+
+        /* Milestones Styling */
+        .milestone-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .milestone-left { padding: 12px 16px; }
+        .milestone-right { padding: 12px 16px; background: #fff; font-size: 13px; font-weight: 600; color: #111; display: flex; align-items: center; }
+
+        /* Resources Table */
+        .resource-card {
+            display: flex;
+            gap: 12px;
+            background: #f8f9fa;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+        .resource-link { font-size: 14px; font-weight: 600; color: #1A56DB; min-width: 160px; text-decoration: none; }
+        .resource-use { font-size: 13px; color: #555; }
+        @media (max-width: 480px) {
+            .resource-card { flex-direction: column; align-items: flex-start; gap: 4px; }
+        }
+
+        /* Collapsible Phases Framework */
+        .phases-wrapper { display: flex; flex-direction: column; gap: 12px; }
+        .phase-container { border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            cursor: pointer;
+            background: #fafafa;
+            user-select: none;
+        }
+        .phase-emoji { font-size: 22px; }
+        .phase-badge { color: #fff; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+        .phase-meta { flex: 1; }
+        .phase-title { font-size: 15px; font-weight: 600; color: #111; }
+        .phase-subtitle { font-size: 12px; color: #888; }
+        .phase-duration { font-size: 12px; color: #555; font-weight: 500; text-align: right; margin-right: 8px; }
+        .arrow-icon { font-size: 18px; color: #bbb; transition: transform 0.2s; }
+        
+        .phase-content { display: none; border-top: 1px solid #e5e7eb; background: #fff; padding: 16px 18px; }
+        
+        .goal-box { border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; font-size: 13px; }
+        .goal-label { font-size: 12px; font-weight: 700; }
+        .xp-box { border: 1px solid #86efac; background: #f0fdf4; border-radius: 8px; padding: 7px 14px; margin-bottom: 16px; font-size: 12px; color: #16a34a; font-weight: 600; }
+
+        /* Weeks Container */
+        .week-container { border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+        .week-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; cursor: pointer; background: #f8f9fa; user-select: none; }
+        .week-name { font-size: 13px; font-weight: 700; color: #333; }
+        .week-lbl { font-size: 12px; color: #888; margin-left: 10px; }
+        .week-content { display: block; padding: 12px 14px; border-top: 1px solid #f0f0f0; display: flex; flex-direction: column; gap: 6px; }
+
+        /* Days Grid Styling */
+        .day-row { display: grid; grid-template-columns: 72px 160px 1fr; border: 1px solid #f0f0f0; border-radius: 8px; overflow: hidden; background: #fafafa; }
+        .day-badge { padding: 8px 10px; font-size: 11px; font-weight: 700; display: flex; align-items: center; border-right: 1px solid #f0f0f0; }
+        .day-topic { padding: 8px 10px; font-size: 12px; font-weight: 600; color: #111; border-right: 1px solid #f0f0f0; display: flex; align-items: center; }
+        .day-details { padding: 8px 10px; }
+        .day-desc { font-size: 12px; color: #444; line-height: 1.5; margin-bottom: 3px; }
+        .day-practice { font-size: 11px; color: #0E9F6E; font-weight: 500; }
+
+        @media (max-width: 650px) {
+            .day-row { grid-template-columns: 1fr; }
+            .day-badge { border-right: none; border-bottom: 1px solid #f0f0f0; }
+            .day-topic { border-right: none; border-bottom: 1px solid #f0f0f0; padding-top: 6px; padding-bottom: 6px; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>DSA Roadmap — Zero to Expert 🏆</h1>
+    <p class="subtitle">6 months · 168 days · 2-3 hrs/day · LeetCode + Competitive Programming</p>
+
+    <div class="flex-container">
+        <span class="label-text">Language:</span>
+        <button id="btn-cpp" class="btn-toggle btn-lang-cpp" onclick="switchLang('cpp')">C++</button>
+        <button id="btn-java" class="btn-toggle btn-lang-inactive" onclick="switchLang('java')">Java</button>
+    </div>
+
+    <div id="language-box" class="lang-box" style="background: #EBF4FF; border: 1.5px solid rgba(0, 87, 184, 0.2);">
+        <div id="lang-title" class="lang-title" style="color: #0057B8;">🛠️ C++ Setup + Essential Tools</div>
+        <pre id="code-setup">// Code content placeholder</pre>
+        <div id="ds-title" class="ds-title" style="color: #0057B8;">📦 Essential Data Structures:</div>
+        <pre id="code-stl">// STL content placeholder</pre>
+    </div>
+
+    <div class="tabs-row">
+        <button id="tab-roadmap" class="tab-btn active" onclick="switchTab('roadmap')">Roadmap</button>
+        <button id="tab-milestones" class="tab-btn" onclick="switchTab('milestones')">Milestones</button>
+        <button id="tab-resources" class="tab-btn" onclick="switchTab('resources')">Resources</button>
+    </div>
+
+    <div id="view-roadmap" class="tab-view active">
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-val">6 months</div><div class="stat-lbl">total duration</div></div>
+            <div class="stat-card"><div class="stat-val">168 days</div><div class="stat-lbl">day by day plan</div></div>
+            <div class="stat-card"><div class="stat-val">2-3 hrs</div><div class="stat-lbl">daily commitment</div></div>
+            <div class="stat-card"><div class="stat-val">500+</div><div class="stat-lbl">problems to solve</div></div>
+        </div>
+
+        <div class="alert-banner">
+            <strong>📌 Golden Rules:</strong> (1) Solve problem yourself first — min 20 min before looking at hint. (2) After seeing solution, code it yourself from memory. (3) Revisit solved problems after 7 days. (4) Understand WHY solution works, not just HOW.
+        </div>
+
+        <div class="phases-wrapper" id="phases-target"></div>
+
+        <div class="info-blue" style="margin-top: 20px;">
+            <div style="font-size: 14px; font-weight: 700; margin-bottom: 8px;">🏆 After 6 Months — What You'll Be Able To Do</div>
+            <div style="line-height: 1.9;">
+                ✅ Solve LeetCode Medium in under 20 min &nbsp;·&nbsp;
+                ✅ Solve LeetCode Hard in under 45 min &nbsp;·&nbsp;
+                ✅ Participate in Codeforces Div.2 and solve A+B+C &nbsp;·&nbsp;
+                ✅ Implement any classic DS/Algo from scratch &nbsp;·&nbsp;
+                ✅ Recognize pattern in any new problem within 5 min &nbsp;·&nbsp;
+                <strong>✅ Clear DSA rounds at any tech company — Indian or international 🚀</strong>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-milestones" class="tab-view">
+        <div class="alert-banner" style="background: #fff8e1; border-color: #f59e0b; color: #5d4037;">
+            <strong>📌 Note:</strong> These are skill levels, not job guarantees. Consistency matters more than speed.
+        </div>
+        <div id="milestones-target"></div>
+        <div class="info-blue" style="margin-top: 16px;">
+            <strong>🎯 After 6 months:</strong> You can solve LeetCode Medium in under 20 min, Hard in under 45 min, participate in Codeforces Div.2 and solve A+B+C, and confidently clear DSA rounds at any Indian or international tech company.
+        </div>
+    </div>
+
+    <div id="view-resources" class="tab-view">
+        <div style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">📚 Best Resources</div>
+        <div id="resources-target"></div>
+        <div class="info-green" style="margin-top: 16px;">
+            <strong>💡 Daily Routine Suggestion:</strong><br><br>
+            Morning (1 hr): Learn new concept + implement<br>
+            Evening (1 hr): Solve 2-3 problems on LeetCode<br>
+            Night (30 min): Review solutions, read editorials<br><br>
+            Weekend: 1 Codeforces/LeetCode contest
+        </div>
+    </div>
+
+    <script>
+        // Raw Embedded Database Structure from jsx
+        const LANG_INFO = {
+            cpp: {
+                name: "C++", color: "#0057B8", bg: "#EBF4FF",
+                setup: `// Install: g++ compiler (comes with MinGW on Windows, built-in on Mac/Linux)\n// Compile: g++ solution.cpp -o solution\n// Run:     ./solution\n\n#include <bits/stdc++.h>   // includes EVERYTHING — use this always\nusing namespace std;\n\nint main() {\n    // your code here\n    return 0;\n}`,
+                stl: `// C++ STL Essentials for DSA:\nvector<int> v;          v.push_back(1);   // dynamic array\nstack<int> st;          st.push(1);       // stack\nqueue<int> q;           q.push(1);        // queue\npriority_queue<int> pq; pq.push(1);       // max heap\nmap<string,int> mp;     mp["key"]=1;      // ordered map\nunordered_map<string,int> ump;            // hash map (faster)\nset<int> s;             s.insert(1);      // ordered set\npair<int,int> p = {1,2};                  // pair\nsort(v.begin(), v.end());                 // sort array\nreverse(v.begin(), v.end());              // reverse\nmin(a,b); max(a,b);                       // min/max\nINT_MAX; INT_MIN;                         // max/min integer values`
+            },
+            java: {
+                name: "Java", color: "#E76F00", bg: "#FFF3E6",
+                setup: `// Install: JDK 17+ from oracle.com\n// Compile: javac Solution.java\n// Run:     java Solution\n\nimport java.util.*;   // imports most data structures\n\npublic class Solution {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // your code here\n    }\n}`,
+                stl: `// Java Collections Essentials for DSA:\nArrayList<Integer> list = new ArrayList<>();  list.add(1);\nStack<Integer> st = new Stack<>();            st.push(1);\nQueue<Integer> q = new LinkedList<>();        q.offer(1);\nPriorityQueue<Integer> pq = new PriorityQueue<>(); pq.offer(1); // min heap\nHashMap<String,Integer> map = new HashMap<>(); map.put("k",1);\nHashSet<Integer> set = new HashSet<>();        set.add(1);\nint[] arr = new int[10];\nArrays.sort(arr);\                             // sort array\nCollections.sort(list);                       // sort list\nMath.min(a,b); Math.max(a,b);                // min/max\nInteger.MAX_VALUE; Integer.MIN_VALUE;         // max/min values`
+            }
+        };
+
+        const PACKAGE_MILESTONES = [
+            { after: "Month 1 done", level: "Solve LeetCode Easy confidently", color: "#1A56DB" },
+            { after: "Month 2 done", level: "LeetCode Easy+Medium (LL/Stack/Queue)", color: "#0E9F6E" },
+            { after: "Month 3 done", level: "Trees + Heaps — Medium problems mostly", color: "#7E3AF2" },
+            { after: "Month 4 done", level: "Graphs — can attempt Hard problems", color: "#E3A008" },
+            { after: "Month 5 done", level: "DP expert — FAANG interview ready", color: "#E02424" },
+            { after: "Month 6 done", level: "Top competitive programmer + FAANG ready 🏆", color: "#057A55" },
+        ];
+
+        const RESOURCES = [
+            { name: "LeetCode", url: "https://leetcode.com", use: "Interview prep — main platform" },
+            { name: "Codeforces", url: "https://codeforces.com", use: "Competitive programming" },
+            { name: "CodeChef", url: "https://codechef.com", use: "Competitive programming (Indian)" },
+            { name: "CSES Problem Set", url: "https://cses.fi/problemset", use: "Best structured problem set" },
+            { name: "CP-Algorithms", url: "https://cp-algorithms.com", use: "Algorithm theory + code" },
+            { name: "Striver's A2Z DSA", url: "https://takeuforward.org", use: "YouTube + structured path" },
+            { name: "NeetCode", url: "https://neetcode.io", use: "LeetCode patterns explained" },
+        ];
+
+        // Complete 168-day Array database extracted from the jsx source
+        const PHASES = [
+  {
+    id: 1, emoji: "🏗️", title: "Foundation", subtitle: "Language setup + Arrays + Strings + Basic Math", duration: "Month 1 (Weeks 1–4)", color: "#1A56DB", bg: "#EBF5FF",
+    goal: "Solve any Easy problem on LeetCode confidently.", xp: "Beginner → LeetCode Easy ready",
+    weeks: [
+      {
+        week: "Week 1", label: "Language Setup + Arrays Basics",
+        days: [
+          { day: "Day 1", topic: "Language Setup + I/O", detail: "Install compiler/IDE. Learn input/output, variables, data types, loops, conditions. Write 10 simple programs.", practice: "Print patterns: triangle, pyramid, diamond" },
+          { day: "Day 2", topic: "Arrays Introduction", detail: "What is an array? Declare, initialize, access elements. Traverse with for loop. Find max/min in array.", practice: "LeetCode #1929 (easy), #1480 (easy)" },
+          { day: "Day 3", topic: "Array Operations", detail: "Insert, delete, reverse an array. Linear search. Count frequency of elements.", practice: "LeetCode #485, #283 (Move Zeroes)" },
+          { day: "Day 4", topic: "Two Pointer Technique", detail: "Two pointer on sorted array. Pair with target sum. Remove duplicates. This pattern repeats EVERYWHERE.", practice: "LeetCode #167, #26, #977" },
+          { day: "Day 5", topic: "Sliding Window Basics", detail: "Fixed window: max sum of k elements. Variable window intro. Window = subarray of consecutive elements.", practice: "LeetCode #643, #209" },
+          { day: "Day 6", topic: "Prefix Sum", detail: "Precompute running sum. Range sum query in O(1). Subarray sum problems.", practice: "LeetCode #303, #724, #560" },
+          { day: "Day 7", topic: "Week 1 Revision + Contest", detail: "Revise all patterns. Attempt 5 unseen problems. Time yourself: 20 min per problem.", practice: "LeetCode Easy contest problems" },
+        ]
+      },
+      {
+        week: "Week 2", label: "Strings",
+        days: [
+          { day: "Day 8", topic: "String Basics", detail: "String as array of chars. String methods: length, substr, find, reverse. String comparison.", practice: "LeetCode #344, #541, #151" },
+          { day: "Day 9", topic: "String Patterns", detail: "Palindrome check. Anagram check. Count vowels/consonants. String reversal tricks.", practice: "LeetCode #125, #242, #387" },
+          { day: "Day 10", topic: "String + HashMap", detail: "Count character frequency using HashMap. First non-repeating character. Group anagrams.", practice: "LeetCode #383, #49, #438" },
+          { day: "Day 11", topic: "Substrings", detail: "Longest substring without repeating chars (sliding window). String matching basics.", practice: "LeetCode #3, #567, #76" },
+          { day: "Day 12", topic: "String Conversion", detail: "String to int (atoi). Int to string. Roman to integer. Reverse words in sentence.", practice: "LeetCode #8, #58, #13" },
+          { day: "Day 13", topic: "Mixed Practice", detail: "Combine array + string problems. Solve 5 problems mixing both topics.", practice: "LeetCode #14, #28, #459" },
+          { day: "Day 14", topic: "Week 2 Revision", detail: "Revisit all string patterns. Solve 3 problems without hints. Review your solutions.", practice: "LeetCode #392, #205, #290" },
+        ]
+      },
+      {
+        week: "Week 3", label: "Sorting + Searching + Math",
+        days: [
+          { day: "Day 15", topic: "Sorting Algorithms", detail: "Bubble sort, Selection sort, Insertion sort — implement all 3. Understand why they're O(n²).", practice: "Implement all 3 from scratch" },
+          { day: "Day 16", topic: "Merge Sort", detail: "Divide and conquer. Split → sort → merge. O(n log n). Used in counting inversions.", practice: "LeetCode #912 (sort array), #148" },
+          { day: "Day 17", topic: "Quick Sort", detail: "Partition around pivot. Average O(n log n). In-place sorting. Understand worst case O(n²).", practice: "Implement quicksort. LeetCode #75 (Dutch flag)" },
+          { day: "Day 18", topic: "Binary Search", detail: "MOST IMPORTANT: binary search template. Search in sorted array. Always ask: is the array monotonic?", practice: "LeetCode #704, #374, #35" },
+          { day: "Day 19", topic: "Binary Search Advanced", detail: "Search in rotated array. Find first/last position. Binary search on answer (not just array).", practice: "LeetCode #33, #34, #153, #162" },
+          { day: "Day 20", topic: "Math Basics", detail: "GCD/LCM (Euclidean algorithm). Prime check. Sieve of Eratosthenes. Power with modulo.", practice: "LeetCode #1071, #204, #50, #69" },
+          { day: "Day 21", topic: "Week 3 Revision", detail: "Sort + search + math combined. 5 problems timed.", practice: "LeetCode #315, #378, #240" },
+        ]
+      },
+      {
+        week: "Week 4", label: "HashMap + HashSet + Bit Manipulation",
+        days: [
+          { day: "Day 22", topic: "HashMap Deep Dive", detail: "HashMap internals. Collision. Why O(1) average. Two Sum with HashMap. Frequency counting.", practice: "LeetCode #1, #560, #525" },
+          { day: "Day 23", topic: "HashSet Patterns", detail: "Detect duplicates. Longest consecutive sequence. Contains nearby duplicate.", practice: "LeetCode #217, #128, #219" },
+          { day: "Day 24", topic: "Bit Manipulation Basics", detail: "AND, OR, XOR, NOT, shift operators. Check if bit is set. Single number (XOR trick).", practice: "LeetCode #136, #191, #231" },
+          { day: "Day 25", topic: "Bit Manipulation Advanced", detail: "Subsets using bits. Count set bits. Swap without temp. Missing number.", practice: "LeetCode #268, #338, #190, #78" },
+          { day: "Day 26", topic: "Mixed Problems", detail: "Combine all Month 1 topics. Solve 8 problems picking randomly.", practice: "LeetCode Easy: random 8 problems" },
+          { day: "Day 27", topic: "Mock Interview Day", detail: "Set timer: 45 min, 2 problems. No hints, no Google. Simulate real interview pressure.", practice: "LeetCode #121 + #238" },
+          { day: "Day 28", topic: "Month 1 Review", detail: "List all patterns learned. Rate yourself 1-10 on each. Make note of weak areas.", practice: "Review all solutions. Redo 3 hardest ones." },
+        ]
+      }
+    ]
+  },
+  {
+    id: 2, emoji: "🔗", title: "Linear Data Structures", subtitle: "Linked Lists + Stacks + Queues", duration: "Month 2 (Weeks 5–8)", color: "#0E9F6E", bg: "#ECFDF5",
+    goal: "Implement Linked List from scratch. Solve Medium LL problems.", xp: "Easy solver → Medium problems started",
+    weeks: [
+      {
+        week: "Week 5", label: "Linked List Basics",
+        days: [
+          { day: "Day 29", topic: "Linked List Concept", detail: "Node structure: data + next pointer. Singly linked list. Why use LL vs array? Memory not contiguous.", practice: "Implement Node class + LinkedList class" },
+          { day: "Day 30", topic: "LL Operations", detail: "Insert at head, tail, position. Delete by value, by position. Print LL. Count nodes.", practice: "LeetCode #707 (Design LL)" },
+          { day: "Day 31", topic: "LL Traversal Problems", detail: "Find middle node (slow/fast pointer). Remove nth from end. LeetCode patterns.", practice: "LeetCode #876, #19, #203" },
+          { day: "Day 32", topic: "LL Reversal", detail: "Reverse a linked list (iterative + recursive). Reverse in groups of k. This comes in EVERY interview.", practice: "LeetCode #206, #92, #25" },
+          { day: "Day 33", topic: "Fast & Slow Pointers", detail: "Detect cycle (Floyd's algorithm). Find cycle start. Happy number. Palindrome LL.", practice: "LeetCode #141, #142, #234, #202" },
+          { day: "Day 34", topic: "LL Merge & Sort", detail: "Merge two sorted lists. Merge k sorted lists. Sort linked list (merge sort on LL).", practice: "LeetCode #21, #23, #148" },
+          { day: "Day 35", topic: "Week 5 Revision", detail: "Implement full LL with all operations from memory. Solve 3 LL problems.", practice: "LeetCode #160, #328, #61" },
+        ]
+      },
+      {
+        week: "Week 6", label: "Doubly LL + Stack + Queue",
+        days: [
+          { day: "Day 36", topic: "Doubly Linked List", detail: "Node has prev + next pointers. Insert/delete anywhere in O(1) if node given. LRU cache foundation.", practice: "Implement DoublyLinkedList from scratch" },
+          { day: "Day 37", topic: "Stack Concept + Implementation", detail: "LIFO (Last In First Out). Implement with array and LL. Push, pop, peek, isEmpty. Call stack in functions.", practice: "LeetCode #155 (Min Stack)" },
+          { day: "Day 38", topic: "Stack — Monotonic Stack", detail: "Next greater element. Previous greater element. Stock span problem. This pattern is VERY common.", practice: "LeetCode #496, #739, #901, #84" },
+          { day: "Day 39", topic: "Stack — Bracket Problems", detail: "Valid parentheses. Remove all adjacent duplicates. Evaluate reverse polish notation.", practice: "LeetCode #20, #1047, #150" },
+          { day: "Day 40", topic: "Queue Basics", detail: "FIFO (First In First Out). Implement with array. Circular queue. Double-ended queue (deque).", practice: "LeetCode #232, #225, #622, #641" },
+          { day: "Day 41", topic: "Monotonic Deque", detail: "Sliding window maximum (HARD but important). Use deque to maintain window.", practice: "LeetCode #239, #862" },
+          { day: "Day 42", topic: "Week 6 Revision", detail: "Build stack + queue from scratch without looking. Solve mixed stack/queue problems.", practice: "LeetCode #42 (Trapping Rain Water)" },
+        ]
+      },
+      {
+        week: "Week 7", label: "Recursion + Backtracking",
+        days: [
+          { day: "Day 43", topic: "Recursion Basics", detail: "Every recursion has: base case + recursive case. Visualize call stack. Fibonacci, factorial, sum.", practice: "Print 1-N, reverse string, power(x,n)" },
+          { day: "Day 44", topic: "Recursion on Arrays", detail: "Recursive search, reverse, sum. Think: what does one call do? Trust recursive calls.", practice: "LeetCode #509, #344 (recursive), #206 (recursive)" },
+          { day: "Day 45", topic: "Backtracking Template", detail: "Choose → Explore → Unchoose. Template applies to ALL backtracking: permutations, subsets, combinations.", practice: "LeetCode #78 (Subsets), #46 (Permutations)" },
+          { day: "Day 46", topic: "Backtracking — Combinations", detail: "Combinations sum. Phone number letter combinations. Understand pruning (skip bad paths early).", practice: "LeetCode #39, #40, #17, #216" },
+          { day: "Day 47", topic: "Backtracking — Grids", detail: "Word search in grid. N-Queens (classic). Sudoku solver. 2D backtracking.", practice: "LeetCode #79, #51, #37" },
+          { day: "Day 48", topic: "Backtracking Revision", detail: "All backtracking uses the same template. Practice identifying when to use it.", practice: "LeetCode #131, #93, #22" },
+          { day: "Day 149", topic: "Week 7 Revision", detail: "Recursion + backtracking mock. 2 problems in 45 min each.", practice: "LeetCode #77, #90, #47" },
+        ]
+      },
+      {
+        week: "Week 8", label: "Month 2 Consolidation",
+        days: [
+          { day: "Day 50", topic: "LRU Cache", detail: "Combine Doubly LL + HashMap. O(1) get and put. Classic system design + DSA combo problem.", practice: "LeetCode #146 (LRU Cache)" },
+          { day: "Day 51", topic: "Hard LL Problems", detail: "Copy list with random pointer. Flatten multilevel LL. Reorder list.", practice: "LeetCode #138, #430, #143" },
+          { day: "Day 52", topic: "Hard Stack Problems", detail: "Largest rectangle in histogram. Maximal rectangle. These use monotonic stack.", practice: "LeetCode #84, #85" },
+          { day: "Day 53", topic: "Mixed Medium Problems", detail: "10 Medium problems from Month 2 topics. Track time and accuracy.", practice: "LeetCode Medium: random 10" },
+          { day: "Day 54", topic: "Recursion to Iteration", detail: "Convert recursive solution to iterative using explicit stack. Important for interviews.", practice: "LeetCode #144, #94, #145 (tree traversal iterative)" },
+          { day: "Day 55", topic: "Mock Interview", detail: "Full interview simulation: 2 problems, 45 min each, no help. Review after.", practice: "LeetCode #25 + #84" },
+          { day: "Day 56", topic: "Month 2 Review", detail: "Rate all topics. List weak areas. Plan next month's focus.", practice: "Redo 5 hardest problems from Month 2" },
+        ]
+      }
+    ]
+  },
+  {
+    id: 3, emoji: "🌳", title: "Trees & Heaps", subtitle: "Binary Trees + BST + Heaps + Priority Queues", duration: "Month 3 (Weeks 9–12)", color: "#7E3AF2", bg: "#F5F3FF",
+    goal: "Solve tree problems in interviews. Master all traversals.", xp: "Medium solver → Tree expert",
+    weeks: [
+      {
+        week: "Week 9", label: "Binary Tree Basics",
+        days: [
+          { day: "Day 57", topic: "Tree Concepts", detail: "Node: data + left + right. Root, leaf, parent, child. Height vs depth. Tree vs graph.", practice: "Draw trees by hand. Build tree from array." },
+          { day: "Day 58", topic: "Tree Traversals", detail: "Inorder (Left-Root-Right), Preorder (Root-Left-Right), Postorder (Left-Right-Root). Memorize all 3.", practice: "LeetCode #144, #94, #145" },
+          { day: "Day 59", topic: "Level Order Traversal", detail: "BFS on tree using queue. Level by level. Zigzag traversal. Most used tree pattern.", practice: "LeetCode #102, #103, #107, #637" },
+          { day: "Day 60", topic: "Tree Properties", detail: "Height of tree. Count nodes. Symmetric tree. Same tree. Balanced tree check.", practice: "LeetCode #104, #222, #101, #100, #110" },
+          { day: "Day 61", topic: "Tree Paths", detail: "Root to leaf path. Path sum. All paths. Max path sum (hard). Path = from any node to any node.", practice: "LeetCode #112, #113, #129, #124" },
+          { day: "Day 62", topic: "Tree Construction", detail: "Build tree from inorder + preorder. Build from inorder + postorder. Serialize/deserialize.", practice: "LeetCode #105, #106, #297" },
+          { day: "Day 63", topic: "Week 9 Revision", detail: "5 random tree problems. Must solve without hints.", practice: "LeetCode #116, #114, #236 (LCA)" },
+        ]
+      },
+      {
+        week: "Week 10", label: "BST + AVL + Tree DP",
+        days: [
+          { day: "Day 64", topic: "Binary Search Tree", detail: "BST property: left < root < right. Search O(log n). Insert. Delete (3 cases).", practice: "LeetCode #700, #701, #450" },
+          { day: "Day 65", topic: "BST Operations", detail: "Validate BST. Kth smallest/largest. Inorder successor/predecessor. Range sum.", practice: "LeetCode #98, #230, #285, #938" },
+          { day: "Day 66", topic: "LCA (Lowest Common Ancestor)", detail: "LCA in BT and BST. Morris traversal (optional). LCA is asked very frequently.", practice: "LeetCode #235, #236, #1123" },
+          { day: "Day 67", topic: "Tree DP", detail: "Solve tree problems with DP at each node. House robber on tree. Diameter of tree.", practice: "LeetCode #337, #543, #687, #124" },
+          { day: "Day 68", topic: "Balanced BST", detail: "Convert sorted array to BST. Balance an unbalanced BST. AVL concept (no need to code).", practice: "LeetCode #108, #109, #1382" },
+          { day: "Day 69", topic: "Trie (Prefix Tree)", detail: "Insert, search, startsWith. Used for autocomplete, word search. Very common in interviews.", practice: "LeetCode #208, #211, #212, #648" },
+          { day: "Day 70", topic: "Week 10 Revision", detail: "BST + Trie combined problems.", practice: "LeetCode #220, #421, #472" },
+        ]
+      },
+      {
+        week: "Week 11", label: "Heaps & Priority Queues",
+        days: [
+          { day: "Day 71", topic: "Heap Concept", detail: "Max heap: parent >= children. Min heap: parent <= children. Heap as array. Parent = (i-1)/2.", practice: "Implement MinHeap from scratch (insert + extractMin)" },
+          { day: "Day 72", topic: "Heap Operations", detail: "Heapify up (insert), heapify down (extract). Build heap O(n). Heap sort.", practice: "LeetCode #215 (Kth largest), #703" },
+          { day: "Day 73", topic: "Priority Queue Patterns", detail: "Top K elements. K closest points. Kth largest stream. Merge K sorted lists.", practice: "LeetCode #347, #973, #23, #264" },
+          { day: "Day 74", topic: "Two Heaps Pattern", detail: "Median from data stream (min heap + max heap). Sliding window median. Very clever technique.", practice: "LeetCode #295, #480" },
+          { day: "Day 75", topic: "Greedy + Heap", detail: "Task scheduler. Meeting rooms II. Reorganize string. Greedy decisions with heap.", practice: "LeetCode #621, #253, #767, #1167" },
+          { day: "Day 76", topic: "Segment Tree Introduction", detail: "Range min/max/sum queries. Point update. Build, query, update in O(log n). Optional but good.", practice: "LeetCode #307, #315" },
+          { day: "Day 77", topic: "Week 11 Revision", detail: "Heap problems random 5. Time: 25 min each.", practice: "LeetCode #358, #218, #502" },
+        ]
+      },
+      {
+        week: "Week 12", label: "Month 3 Consolidation",
+        days: [
+          { day: "Day 78", topic: "Hard Tree Problems", detail: "Binary Tree Cameras. Maximum width. Count complete tree nodes.", practice: "LeetCode #968, #662, #222" },
+          { day: "Day 79", topic: "Hard Heap Problems", detail: "Find median from stream + sliding window. IPO problem.", practice: "LeetCode #295, #480, #502" },
+          { day: "Day 80", topic: "Mixed Tree + Heap", detail: "Combine both: problems needing tree traversal + heap.", practice: "LeetCode #1373, #692, #767" },
+          { day: "Day 81", topic: "LeetCode Mock — Medium", detail: "3 Medium problems. 40 min each. No hints. Track accuracy.", practice: "Random 3 Medium from Trees section" },
+          { day: "Day 82", topic: "LeetCode Mock — Hard", detail: "1 Hard problem. 60 min. If stuck after 30 min, read hint only.", practice: "LeetCode #124 or #297 or #1192" },
+          { day: "Day 83", topic: "Competitive Programming Intro", detail: "Register on Codeforces. Solve Div. 2 A and B problems (these are Easyish).", practice: "Codeforces: 3 Div.2 A problems" },
+          { day: "Day 84", topic: "Month 3 Review", detail: "Full review. Rate 1-10 on each topic. Make study plan for weak areas.", practice: "Redo 5 hardest from Month 3" },
+        ]
+      }
+    ]
+  },
+  {
+    id: 4, emoji: "🕸️", title: "Graphs", subtitle: "BFS + DFS + Shortest Path + Advanced Graph", duration: "Month 4 (Weeks 13–16)", color: "#E3A008", bg: "#FFFBEB",
+    goal: "Solve graph problems confidently. Implement Dijkstra, Topological Sort.", xp: "Tree expert → Graph master",
+    weeks: [
+      {
+        week: "Week 13", label: "Graph Basics + BFS + DFS",
+        days: [
+          { day: "Day 85", topic: "Graph Representation", detail: "Adjacency matrix vs adjacency list. Directed vs undirected. Weighted vs unweighted. When to use each.", practice: "Build graph from edge list. Print adjacency list." },
+          { day: "Day 86", topic: "BFS on Graph", detail: "BFS = level order. Use queue. Visited array. Find shortest path in unweighted graph.", practice: "LeetCode #733, #994, #1091" },
+          { day: "Day 87", topic: "DFS on Graph", detail: "DFS = go deep. Use recursion or stack. Visited array. Find all paths.", practice: "LeetCode #200, #695, #130, #417" },
+          { day: "Day 88", topic: "Connected Components", detail: "Count islands. Mark visited. Union-Find preview. Number of provinces.", practice: "LeetCode #200, #547, #695, #1020" },
+          { day: "Day 89", topic: "Cycle Detection", detail: "Detect cycle in undirected graph (DFS). Detect cycle in directed graph (DFS with color: white/gray/black).", practice: "LeetCode #207 (Course Schedule), #261" },
+          { day: "Day 90", topic: "Topological Sort", detail: "Order tasks with dependencies. Kahn's algorithm (BFS). DFS-based topo sort. Only for DAGs.", practice: "LeetCode #207, #210, #269, #444" },
+          { day: "Day 91", topic: "Week 13 Revision", detail: "BFS + DFS + topo sort. 5 problems random.", practice: "LeetCode #127, #433, #815, #1129" },
+        ]
+      },
+      {
+        week: "Week 14", label: "Shortest Path Algorithms",
+        days: [
+          { day: "Day 92", topic: "Dijkstra's Algorithm", detail: "Shortest path in weighted graph (no negative weights). Use min heap. O((V+E) log V). VERY common in interviews.", practice: "LeetCode #743, #787, #1514" },
+          { day: "Day 93", topic: "Bellman-Ford", detail: "Shortest path with negative weights. Detect negative cycles. Relax all edges V-1 times.", practice: "LeetCode #787 (compare with Dijkstra)" },
+          { day: "Day 94", topic: "Floyd-Warshall", detail: "All-pairs shortest path. O(V³). Dynamic programming on graph. Small graphs only.", practice: "LeetCode #1334, #1462" },
+          { day: "Day 95", topic: "0-1 BFS", detail: "BFS for graph with edge weights 0 or 1. Use deque instead of queue. Faster than Dijkstra for this case.", practice: "LeetCode #1368, #1293" },
+          { day: "Day 96", topic: "Minimum Spanning Tree", detail: "Prim's algorithm. Kruskal's algorithm. Union-Find for Kruskal. Connect all nodes with min cost.", practice: "LeetCode #1584, #1135, #1489" },
+          { day: "Day 97", topic: "Union-Find (DSU)", detail: "Disjoint Set Union. Find with path compression. Union by rank. O(α(n)) ≈ O(1) amortized.", practice: "LeetCode #684, #685, #721, #839" },
+          { day: "Day 98", topic: "Week 14 Revision", detail: "Shortest path mixed problems.", practice: "LeetCode #778, #882, #1976" },
+        ]
+      },
+      {
+        week: "Week 15", label: "Advanced Graph",
+        days: [
+          { day: "Day 99",  topic: "Bipartite Graph",      detail: "2-color graph (BFS/DFS). Check if graph is bipartite. Possible bipartition.", practice: "LeetCode #785, #886" },
+          { day: "Day 100", topic: "Bridges & Articulation Points", detail: "Find critical connections. Tarjan's algorithm. Important in network design.", practice: "LeetCode #1192, #1489" },
+          { day: "Day 101", topic: "Strongly Connected Components", detail: "Kosaraju's or Tarjan's algorithm. All nodes reachable from each other. Condensation graph.", practice: "LeetCode #1557, #2360" },
+          { day: "Day 102", topic: "Graph + DP", detail: "Longest path in DAG. Number of paths. Combine DP with graph topological order.", practice: "LeetCode #329, #1857, #1245" },
+          { day: "Day 103", topic: "Multi-source BFS", detail: "Start BFS from multiple sources simultaneously. Walls and gates. 01 Matrix. Rotting oranges.", practice: "LeetCode #994, #542, #286" },
+          { day: "Day 104", topic: "Graph Problems Mixed", detail: "Hard graph problems. Word ladder (BFS). Alien dictionary.", practice: "LeetCode #127, #126, #269" },
+          { day: "Day 105", topic: "Week 15 Revision", detail: "All graph algorithms review. When to use which algorithm?", practice: "Make cheat sheet: problem type → algorithm" },
+        ]
+      },
+      {
+        week: "Week 16", label: "Month 4 Consolidation",
+        days: [
+          { day: "Day 106", topic: "Hard Graph Problems", detail: "Bus routes. Minimum cost to reach destination. Swim in rising water.", practice: "LeetCode #815, #787, #778" },
+          { day: "Day 107", topic: "Competitive: Graph Problems", detail: "Codeforces Div.2 C/D level graph problems.", practice: "Codeforces: 3 graph problems" },
+          { day: "Day 108", topic: "Mock Interview — Graph", detail: "2 problems: 1 medium + 1 hard. 45 + 60 min. No hints.", practice: "LeetCode #200 + #127" },
+          { day: "Day 109", topic: "Revision: All 4 Months", detail: "Quick revision of Month 1-4. Focus on patterns, not individual problems.", practice: "List all patterns: 2-pointer, sliding window, BFS, DFS, etc." },
+          { day: "Day 110", topic: "LeetCode Contest", detail: "Participate in actual LeetCode weekly contest. Target: solve Q1 + Q2.", practice: "LeetCode Weekly Contest" },
+          { day: "Day 111", topic: "Codeforces Round", detail: "Participate in Codeforces Div.2. Target: solve A + B + attempt C.", practice: "Codeforces Div.2 round" },
+          { day: "Day 112", topic: "Month 4 Review", detail: "Review all wrong solutions from Month 4.", practice: "Review all wrong solutions from Month 4" },
+        ]
+      }
+    ]
+  },
+  {
+    id: 5, emoji: "⚡", title: "Dynamic Programming", subtitle: "1D DP → 2D DP → Advanced DP", duration: "Month 5 (Weeks 17–20)", color: "#E02424", bg: "#FFF5F5",
+    goal: "Solve DP problems by identifying subproblems. Master classic DP patterns.", xp: "Graph master → DP expert",
+    weeks: [
+      {
+        week: "Week 17", label: "DP Foundation + 1D DP",
+        days: [
+          { day: "Day 113", topic: "What is DP?", detail: "DP = recursion + memoization OR tabulation. Identify: overlapping subproblems + optimal substructure. Draw recursion tree.", practice: "Fibonacci 3 ways: recursion, memo, tabulation" },
+          { day: "Day 114", topic: "Memoization vs Tabulation", detail: "Top-down (memo) = recursion + cache. Bottom-up (tabulation) = fill table iteratively. Space optimization tricks.", practice: "LeetCode #70 (Climbing Stairs), #746" },
+          { day: "Day 115", topic: "Classic 1D DP", detail: "House Robber (can't take adjacent). Jump game. Min cost climbing stairs.", practice: "LeetCode #198, #213, #55, #45" },
+          { day: "Day 116", topic: "Subsequence DP", detail: "Longest Increasing Subsequence (LIS). Count LIS. LIS with binary search O(n log n).", practice: "LeetCode #300, #673, #354, #646" },
+          { day: "Day 117", topic: "Kadane's Algorithm", detail: "Maximum subarray sum. Maximum product subarray. Circular subarray. Kadane = 1D DP optimized.", practice: "LeetCode #53, #152, #918" },
+          { day: "Day 118", topic: "DP on Strings — 1D", detail: "Decode ways. Word break. Palindromic substrings count.", practice: "LeetCode #91, #139, #647" },
+          { day: "Day 119", topic: "Week 17 Revision", detail: "All 1D DP patterns. Draw state transition for each.", practice: "LeetCode #322, #279, #343" },
+        ]
+      },
+      {
+        week: "Week 18", label: "2D DP + Classic Problems",
+        days: [
+          { day: "Day 120", topic: "Grid DP", detail: "Unique paths. Minimum path sum. Dungeon game. State = (row, col).", practice: "LeetCode #62, #63, #64, #174" },
+          { day: "Day 121", topic: "Longest Common Subsequence", detail: "LCS = classic 2D DP. LCS → Edit distance → Shortest common supersequence.", practice: "LeetCode #1143, #72, #1092, #583" },
+          { day: "Day 122", topic: "Edit Distance & Variants", detail: "Insert/delete/replace operations. Wildcard matching. Regular expression matching.", practice: "LeetCode #72, #44, #10" },
+          { day: "Day 123", topic: "Knapsack 0/1", detail: "Classic: fit items in bag. Can't use item twice. State = (items, capacity). Subset sum.", practice: "LeetCode #416 (Subset Sum), #494, #474" },
+          { day: "Day 124", topic: "Unbounded Knapsack", detail: "Use item multiple times. Coin change. Coin change 2. Rod cutting.", practice: "LeetCode #322, #518, #279" },
+          { day: "Day 125", topic: "Interval DP", detail: "Burst balloons. Matrix chain multiplication. Min cost merge stones. State = (left, right).", practice: "LeetCode #312, #1000, #516" },
+          { day: "Day 126", topic: "Week 18 Revision", detail: "All 2D DP. For each: write recurrence, code, optimize space.", practice: "LeetCode #115, #97, #132" },
+        ]
+      },
+      {
+        week: "Week 19", label: "Advanced DP",
+        days: [
+          { day: "Day 127", topic: "DP on Trees", detail: "Diameter of tree. Max path sum. House robber on tree. State at each node.", practice: "LeetCode #543, #124, #337, #1372" },
+          { day: "Day 128", topic: "DP with Bitmask", detail: "State = which elements used (as bitmask). Traveling salesman problem. Assign work to workers.", practice: "LeetCode #526, #1434, #847" },
+          { day: "Day 129", topic: "Digit DP", detail: "Count numbers in [L,R] with some property. State = (position, tight, started).", practice: "LeetCode #233, #357, #600, #902" },
+          { day: "Day 130", topic: "DP + Data Structure", detail: "DP with segment tree or BIT for range queries. Optimized LIS with BIT.", practice: "LeetCode #315, #327, #493" },
+          { day: "Day 131", topic: "DP Optimization", detail: "Divide and conquer DP. Convex hull trick. Monotone queue optimization. Advanced competitive programming.", practice: "Codeforces: DP optimization problems" },
+          { day: "Day 132", topic: "State Machine DP", detail: "Buy and sell stock series. State = (holding, not-holding, cooldown).", practice: "LeetCode #121, #122, #123, #188, #309" },
+          { day: "Day 133", topic: "Week 19 Revision", detail: "Hardest DP problems. Categorize by pattern.", practice: "LeetCode #87, #410, #1335" },
+        ]
+      },
+      {
+        week: "Week 20", label: "Month 5 Consolidation",
+        days: [
+          { day: "Day 134", topic: "DP Pattern Recognition", detail: "Given a new problem, identify which DP pattern it belongs to. Practice this skill.", practice: "Solve 10 DP problems, categorize before coding" },
+          { day: "Day 135", topic: "Hard DP Problems", detail: "Wildcard + regex + burst balloons + TSP bitmask.", practice: "LeetCode #44, #10, #312, #847" },
+          { day: "Day 136", topic: "Competitive DP", detail: "Codeforces Div.1 D level DP. Read editorial after 45 min.", practice: "Codeforces: 2 DP problems" },
+          { day: "Day 137", topic: "Mock Interview", detail: "3 problems: Easy + Medium + Hard DP. Timed.", practice: "LeetCode #70 + #300 + #312" },
+          { day: "Day 138", topic: "LeetCode Contest", detail: "Weekly contest. Target Q1 + Q2 + attempt Q3.", practice: "LeetCode Weekly Contest" },
+          { day: "Day 139", topic: "All Months Review", detail: "You now know: Arrays, LL, Stack, Queue, Trees, Heaps, Graphs, DP. Review all patterns.", practice: "Make master cheat sheet of all patterns" },
+          { day: "Day 140", topic: "Month 5 Review", detail: "Rate DP subtopics. Plan Month 6.", practice: "Redo 10 hardest problems from all 5 months" },
+        ]
+      }
+    ]
+  },
+  {
+    id: 6, emoji: "🏆", title: "Expert & Interview Prep", subtitle: "Advanced Topics + Mock Interviews + System Design Basics", duration: "Month 6 (Weeks 21–24)", color: "#057A55", bg: "#ECFDF5",
+    goal: "Crack FAANG-level interviews. Solve Hard problems confidently.", xp: "DP expert → Interview ready 🚀",
+    weeks: [
+      {
+        week: "Week 21", label: "Greedy Algorithms + Advanced Sorting",
+        days: [
+          { day: "Day 141", topic: "Greedy Algorithm Foundation", detail: "Make locally optimal choice hoping global optimum. Prove: exchange argument. Activity selection problem.", practice: "LeetCode #455, #860, #1005" },
+          { day: "Day 142", topic: "Interval Greedy", detail: "Merge intervals. Non-overlapping intervals. Meeting rooms. Insert interval.", practice: "LeetCode #56, #435, #452, #57" },
+          { day: "Day 143", topic: "Greedy on Arrays", detail: "Jump game greedy. Gas station. Candy. Assign cookies.", practice: "LeetCode #55, #134, #135, #406" },
+          { day: "Day 144", topic: "Counting Sort + Radix Sort", detail: "Counting sort O(n+k). Radix sort O(d*(n+k)). When to use over comparison-based sorts.", practice: "LeetCode #164, #315, #327" },
+          { day: "Day 145", topic: "Advanced Binary Search", detail: "Binary search on answer. Minimize max. Maximize min. Koko eating bananas.", practice: "LeetCode #875, #1011, #410, #1283" },
+          { day: "Day 146", topic: "Sweep Line Algorithm", detail: "Process events in order. Skyline problem. Meeting rooms III. Car fleet.", practice: "LeetCode #218, #253, #853" },
+          { day: "Day 147", topic: "Week 21 Revision", detail: "Greedy + advanced binary search.", practice: "LeetCode #1642, #1802, #774" },
+        ]
+      },
+      {
+        week: "Week 22", label: "Advanced Data Structures",
+        days: [
+          { day: "Day 148", topic: "Segment Tree Advanced", detail: "Lazy propagation. Range update. Dynamic segment tree. Build from scratch.", practice: "LeetCode #307, #315, #2213" },
+          { day: "Day 149", topic: "Fenwick Tree (BIT)", detail: "Binary Indexed Tree. Range sum with point update. O(log n) both. Cleaner than segment tree for sums.", practice: "LeetCode #307, #315, #493" },
+          { day: "Day 150", topic: "Sparse Table", detail: "Range min/max queries in O(1) with O(n log n) build. No updates. RMQ (range minimum query).", practice: "Implement sparse table for range min" },
+          { day: "Day 151", topic: "Skip List + B-Tree Concepts", detail: "How databases index data. These are conceptual — understand, don't code.", practice: "Read about indexing in databases" },
+          { day: "Day 152", topic: "Suffix Array + Z-function", detail: "String matching in O(n log n). Longest common prefix. For competitive programming.", practice: "LeetCode #1044, Codeforces string problems" },
+          { day: "Day 153", topic: "Rolling Hash (Rabin-Karp)", detail: "String matching using hashing. O(n+m) average. Avoid hash collision with double hashing.", practice: "LeetCode #187, #1044, #686" },
+          { day: "Day 154", topic: "Week 22 Revision", detail: "Advanced DS problems. Focus on competitive programming.", practice: "Codeforces: 3 problems needing advanced DS" },
+        ]
+      },
+      {
+        week: "Week 23", label: "Interview Patterns + Mock",
+        days: [
+          { day: "Day 155", topic: "Top 10 Interview Patterns", detail: "Sliding window, Two pointer, Fast/slow pointer, Merge intervals, Cyclic sort, BFS, DFS, Two heaps, Subsets, Modified binary search.", practice: "Solve 1 problem for each pattern" },
+          { day: "Day 156", topic: "Amazon Interview Prep", detail: "Focus: Arrays, DP, BFS/DFS. Amazon loves: LRU Cache, design problems, behavioral. Top 50 Amazon LeetCode.", practice: "LeetCode: Amazon tagged problems" },
+          { day: "Day 157", topic: "Google Interview Prep", detail: "Focus: Hard graphs, DP, string manipulation. Google loves: creative solutions, edge cases. Be precise.", practice: "LeetCode: Google tagged problems" },
+          { day: "Day 158", topic: "Microsoft Interview Prep", detail: "Focus: Trees, recursion, system design basics. Microsoft tests problem-solving approach.", practice: "LeetCode: Microsoft tagged problems" },
+          { day: "Day 159", topic: "Mock Interview 1", detail: "Full simulation: 2 problems, 45 min each. Record yourself explaining. Review solution approach.", practice: "LeetCode #146 (LRU) + #297 (Serialize Tree)" },
+          { day: "Day 160", topic: "Mock Interview 2", detail: "Graph + DP combo. Full interview flow: clarify → examples → approach → code → test.", practice: "LeetCode #329 (Longest Path) + #787 (Cheapest Flight)" },
+          { day: "Day 161", topic: "Mock Interview 3", detail: "Hard problems. Explain thinking out loud. Focus on communication, not just solution.", practice: "LeetCode #42 + #84 + #315" },
+        ]
+      },
+      {
+        week: "Week 24", label: "Final Sprint + Competitive Programming",
+        days: [
+          { day: "Day 162", topic: "Competitive: Number Theory", detail: "Modular arithmetic, Fermat's little theorem, Matrix exponentiation, Fast exponentiation.", practice: "Codeforces: number theory problems" },
+          { day: "Day 163", topic: "Competitive: Game Theory", detail: "Nim game. Sprague-Grundy theorem. Combinatorial game theory basics.", practice: "LeetCode #292, #294, #375, #464" },
+          { day: "Day 164", topic: "Competitive: Geometry Basics", detail: "Cross product, dot product, convex hull. Computational geometry basics.", practice: "LeetCode #587, #149, #218" },
+          { day: "Day 165", topic: "Complete Mock Interview Day", detail: "3 full mock interviews with different problem types. Time everything.", practice: "Full mock: Easy + Medium + Hard" },
+          { day: "Day 166", topic: "Codeforces Rating Push", detail: "Do 3 Codeforces rounds. Target: solve Div.2 A+B+C consistently.", practice: "3 Codeforces Div.2 rounds" },
+          { day: "Day 167", topic: "Weak Areas Final Fix", detail: "Whatever you're worst at — spend entire day on it. No new topics.", practice: "10 problems on your weakest topic" },
+          { day: "Day 168", topic: "You're Ready 🏆", detail: "6 months. 168 days. You now have solid DSA foundation. LeetCode Medium = easy. Hard = possible. Keep practicing daily.", practice: "1 LeetCode problem every day forever." },
+        ]
+      }
+    ]
+  }
+];
+
+        // 1. Language Toggle Module
+        function switchLang(langKey) {
+            const data = LANG_INFO[langKey];
+            const box = document.getElementById("language-box");
+            const title = document.getElementById("lang-title");
+            const codeSetup = document.getElementById("code-setup");
+            const codeStl = document.getElementById("code-stl");
+            const btnCpp = document.getElementById("btn-cpp");
+            const btnJava = document.getElementById("btn-java");
+
+            // Update Colors & Config
+            box.style.background = data.bg;
+            box.style.border = `1.5px solid ${data.color}33`;
+            title.style.color = data.color;
+            title.innerText = `🛠️ ${data.name} Setup + Essential Tools`;
+            document.getElementById("ds-title").style.color = data.color;
+
+            // Inject Code Blocks
+            codeSetup.innerText = data.setup;
+            codeStl.innerText = data.stl;
+
+            // Reset Inactive Buttons classes
+            if(langKey === 'cpp') {
+                btnCpp.className = "btn-toggle btn-lang-cpp";
+                btnJava.className = "btn-toggle btn-lang-inactive";
+            } else {
+                btnCpp.className = "btn-toggle btn-lang-inactive";
+                btnJava.className = "btn-toggle btn-lang-java";
+                btnJava.style.backgroundColor = data.color;
+                btnJava.style.color = "#fff";
+            }
+        }
+
+        // 2. Tab Navigation Module
+        function switchTab(tabId) {
+            // Manage Active States on Buttons
+            document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+            document.getElementById(`tab-${tabId}`).classList.add("active");
+
+            // Toggle Content Views
+            document.querySelectorAll(".tab-view").forEach(view => view.classList.remove("active"));
+            document.getElementById(`view-${tabId}`).classList.add("active");
+        }
+
+        // 3. Dynamic DOM Generation Module (Builds the 168-day roadmap structure dynamically)
+        function initializeRoadmapHTML() {
+            const wrapper = document.getElementById("phases-target");
+            
+            PHASES.forEach((phase, pi) => {
+                const phaseId = `phase-${pi}`;
+                
+                // Construct Main Phase Wrapper
+                const pDiv = document.createElement("div");
+                pDiv.className = "phase-container";
+                
+                // Phase Header Inner DOM string
+                pDiv.innerHTML = `
+                    <div class="phase-header" onclick="toggleAccordion('${phaseId}')" id="${phaseId}-header">
+                        <span class="phase-emoji">${phase.emoji}</span>
+                        <span class="phase-badge" style="background: ${phase.color};">Phase ${phase.id}</span>
+                        <div class="phase-meta">
+                            <div class="phase-title">${phase.title}</div>
+                            <div class="phase-subtitle">${phase.subtitle}</div>
+                        </div>
+                        <div class="phase-duration">${phase.duration}</div>
+                        <span class="arrow-icon" id="${phaseId}-arrow">⌄</span>
+                    </div>
+                    <div class="phase-content" id="${phaseId}-content">
+                        <div class="goal-box" style="background: ${phase.bg}; border: 1.5px solid ${phase.color}33;">
+                            <span class="goal-label" style="color: ${phase.color};">🎯 Goal: </span>
+                            <span style="color: #444;">${phase.goal}</span>
+                        </div>
+                        <div class="xp-box">⬆ ${phase.xp}</div>
+                        <div class="weeks-wrapper" id="${phaseId}-weeks-target"></div>
+                    </div>
+                `;
+                
+                wrapper.appendChild(pDiv);
+                
+                // Inject Internal Weeks into Phase Data Target
+                const weeksTarget = document.getElementById(`${phaseId}-weeks-target`);
+                phase.weeks.forEach((week, wi) => {
+                    const weekId = `week-${pi}-${wi}`;
+                    const wDiv = document.createElement("div");
+                    wDiv.className = "week-container";
+                    
+                    wDiv.innerHTML = `
+                        <div class="week-header" onclick="toggleWeekAccordion('${weekId}')">
+                            <div>
+                                <span class="week-name">${week.week}</span>
+                                <span class="week-lbl">${week.label}</span>
+                            </div>
+                            <span class="arrow-icon" id="${weekId}-arrow" style="transform: rotate(180deg)">⌄</span>
+                        </div>
+                        <div class="week-content" id="${weekId}-content" style="display: flex;">
+                            </div>
+                    `;
+                    
+                    weeksTarget.appendChild(wDiv);
+                    
+                    // Inject Internal Days Row items
+                    const daysContentTarget = document.getElementById(`${weekId}-content`);
+                    week.days.forEach(d => {
+                        const dayRow = document.createElement("div");
+                        dayRow.className = "day-row";
+                        dayRow.innerHTML = `
+                            <div class="day-badge" style="background: ${phase.bg}; color: ${phase.color};">${d.day}</div>
+                            <div class="day-topic">${d.topic}</div>
+                            <div class="day-details">
+                                <div class="day-desc">${d.detail}</div>
+                                <div class="day-practice">🔗 Practice: ${d.practice}</div>
+                            </div>
+                        `;
+                        daysContentTarget.appendChild(dayRow);
+                    });
+                });
+            });
+
+            // Auto-open Phase 1 dynamically on load
+            toggleAccordion('phase-0');
+        }
+
+        // Accordion Animation Handlers
+        function toggleAccordion(phaseId) {
+            const content = document.getElementById(`${phaseId}-content`);
+            const arrow = document.getElementById(`${phaseId}-arrow`);
+            const header = document.getElementById(`${phaseId}-header`);
+            const currentPhaseData = PHASES[phaseId.split('-')[1]];
+
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                arrow.style.transform = "none";
+                header.style.background = "#fafafa";
+            } else {
+                content.style.display = "block";
+                arrow.style.transform = "rotate(180deg)";
+                header.style.background = currentPhaseData.bg;
+            }
+        }
+
+        function toggleWeekAccordion(weekId) {
+            const content = document.getElementById(`${weekId}-content`);
+            const arrow = document.getElementById(`${weekId}-arrow`);
+
+            if (content.style.display === "none") {
+                content.style.display = "flex";
+                arrow.style.transform = "rotate(180deg)";
+            } else {
+                content.style.display = "none";
+                arrow.style.transform = "none";
+            }
+        }
+
+        // Render Milestones Content View Static Data
+        function renderMilestones() {
+            const target = document.getElementById("milestones-target");
+            PACKAGE_MILESTONES.forEach(m => {
+                const row = document.createElement("div");
+                row.className = "milestone-row";
+                row.style.border = `1.5px solid ${m.color}44`;
+                row.innerHTML = `
+                    <div class="milestone-left" style="background: ${m.color}18; color: ${m.color}; font-size: 12px; font-weight: 700;">📍 ${m.after}</div>
+                    <div class="milestone-right">${m.level}</div>
+                `;
+                target.appendChild(row);
+            });
+        }
+
+        // Render Resources Content View Static Data
+        function renderResources() {
+            const target = document.getElementById("resources-target");
+            RESOURCES.forEach(r => {
+                const card = document.createElement("div");
+                card.className = "resource-card";
+                card.innerHTML = `
+                    <a href="${r.url}" target="_blank" rel="noreferrer" class="resource-link">🔗 ${r.name}</a>
+                    <span class="resource-use">${r.use}</span>
+                `;
+                target.appendChild(card);
+            });
+        }
+
+        // Boot-Up App Initialization sequence
+        window.onload = function() {
+            switchLang('cpp');
+            initializeRoadmapHTML();
+            renderMilestones();
+            renderResources();
+        };
+    </script>
+</body>
+</html>
