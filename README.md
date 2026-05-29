@@ -38,4 +38,4 @@ Since this project has absolutely **zero external frameworks or bundle dependenc
 ### Method 1: Local Desktop/Laptop Launch
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/YOUR_USERNAME/dsa-roadmap-interactive.git](https://github.com/YOUR_USERNAME/dsa-roadmap-interactive.git)
+   git clone [https://github.com/theYugrathee/dsa-roadmap-interactive.git](https://github.com/theYugrathee/dsa-roadmap-interactive.git)
